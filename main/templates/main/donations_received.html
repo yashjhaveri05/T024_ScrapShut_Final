@@ -1,0 +1,46 @@
+{% extends "main/layout.html" %}
+{% block content %}
+<div class="list">
+    {% if donations %}
+    <h1 class="text-center">Donations Received</h1>
+    <div class="row">
+        <div class="col-sm-11 m-auto">
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">Equipment Donated</th>
+                        <td scope="col">Required</td>
+                        <td scope="col">Donated Quantity</td>
+                        <th scope="col">Request Made</th>
+                        <th scope="col">Donated By</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Email</th>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for donation in donations %}
+                    <tr>
+                        <td>{{ donation.equipment_donated }}</td>
+                        <td>{{ donation.equipment_donated.quantity }}</td>
+                        <td>{{ donation.quantity_donated }}</td>
+                        <td>{{ donation.request_made }}</td>
+                        <td>{{ donation.donated_by }}</td>
+                        <td>{{ donation.donated_by.email }}</td>
+                        <td>{{ donation.donated_by.mobile_number }}</td>
+                        {% if donation.validated %}
+                        <td>Doanted On:{{ donation.donated_on }}</td>
+                        {% else %}
+                        <td><a href="{% url 'main:validate' donation.id %}" class="btn btn-primary">Validate</a></td>
+                        {% endif %}
+                    </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>            
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

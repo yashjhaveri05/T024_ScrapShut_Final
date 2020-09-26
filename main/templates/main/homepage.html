@@ -1,0 +1,25 @@
+{% extends "main/layout.html" %}
+{% block content %}
+<div class="home">
+    <div class="container">
+      {% if requirements %}
+      <h1 class="text-center mb-3">NGO Requirement List</h1>
+      <div class="row">
+        {% for requirement in requirements %}
+            <div class="col-sm-4">
+                <div class="card mb-3" style="height: 300px; border-radius: 5px;">
+                    <div class="card-body text-center bg-dark text-light">              
+                      <h4 class="text-center"><a href="{% url 'main:requirements_detail' requirement.id %}">{{ requirement.created_by }} </a></h4>
+                      <h4 class="text-center">{{ requirement.equipments }}</h4>
+                      <h5 class="text-center">{{ requirement.quantity }}</h5>
+                      <h5 class="text-center">{{ requirement.required_by }}</h5>  
+                      <a href="{% url 'main:requirements_detail' requirement.id %}" class="btn btn-info">View Details</a>           
+                    </div>
+                </div>
+            </div>            
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+</div>
+{% endblock %}
