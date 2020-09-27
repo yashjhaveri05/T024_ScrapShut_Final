@@ -94,7 +94,7 @@ def donor_signup(request):
                 user = User.objects.create(first_name=first_name,last_name=last_name,password=make_password(password), email=email, username=username, mobile_number=mobile_number,
                                                 address=address,city=city,pincode=pincode,is_Donor=True)
                 login(request, user)
-                return redirect('home')
+                return redirect('main:home')
         else:
             messages.info(request, 'Passwords Do Not Match')
             return redirect('main:donor_signup')
@@ -238,3 +238,6 @@ def redeemed_gifts(request):
         'redeemed_gifts' : redeemed_gifts
     }
     return render(request, 'main/redeemed_gifts.html', context)
+
+def router(request):
+    return render(request, 'main/signup_options.html')
