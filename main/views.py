@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import auth
 from django.contrib import messages
-from .models import User, NGO, Requirements, Donations
+from .models import User, NGO, Requirements, Donations, Gifts, Redeemed
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.hashers import make_password
@@ -166,6 +166,44 @@ def donations_received(request):
 
 def validate(request,pk):
     donations = Donations.objects.filter(id=pk)
+    donor = donations[0]
     donated_on = timezone.now()
     donations.update(validated=True, donated_on=donated_on)
+    users = User.objects.filter(username=donor)
+    for user in users:
+        if user.is_Donor:
+            user.credit = user.credit + 20
+    credit = user.credit
+    users.update(credit=credit)
     return redirect('main:home')
+
+def gifts(request):
+    gifts = Gifts.objects.all()
+    context = {
+        'gifts' : gifts,
+    }
+    return render(request, 'main/gifts.html', context)
+
+def redeem(request,pk):
+    gifts = Gifts.objects.filter(id=pk)
+    for gift in gifts:
+        price = int(gift.price)
+    redeemed = Redeemed(redeemed_by=request.user,gift=gift)
+    redeemed.save()
+    users = User.objects.filter(username=request.user)
+    for user in users:
+        credit = user.credit
+    if price>credit:
+        messages.success(request, "Insufficient Credits!!Earn more by donating more!!")
+    else:
+        credit = credit-price
+        messages.success(request, "You will get your gift in 10 days!!")
+    users.update(credit=credit)
+    return redirect("main:home")
+
+def redeemed_gifts(request):
+    redeemed_gifts = Redeemed.objects.filter(redeemed_by=request.user)
+    context = {
+        'redeemed_gifts' : redeemed_gifts
+    }
+    return render(request, 'main/redeemed_gifts.html', context)

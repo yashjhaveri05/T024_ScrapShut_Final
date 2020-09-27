@@ -18,5 +18,8 @@ urlpatterns = [
     path('donations_made/',views.donations_made,name='donations_made'),
     path('donations_received/', views.donations_received,name='donations_received'),
     path('validate/<int:pk>', views.validate,name='validate'),
+    path('gifts/', views.gifts, name='gifts'),
+    path('redeem/<int:pk>', views.redeem, name='redeem'),
+    path('redeemed_gifts/', views.redeemed_gifts, name='redeemed_gifts'),
 ]
 

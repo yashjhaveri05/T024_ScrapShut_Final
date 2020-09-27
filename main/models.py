@@ -11,6 +11,7 @@ class User(AbstractUser):
     pincode = models.CharField(max_length=10)
     is_NGO = models.BooleanField(default=False)
     is_Donor = models.BooleanField(default=False)
+    credit = models.IntegerField(default=0)
 
 class NGO(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -62,4 +63,21 @@ class Donations(models.Model):
     validated = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.equipment_donated)
+        return str(self.donated_by)
+
+class Gifts(models.Model):
+    image = models.ImageField(default='default.png', upload_to='images/')
+    name = models.CharField(max_length=150)
+    description = models.CharField(max_length=250,blank=True)
+    price = models.FloatField()
+
+    def __str__(self):
+        return self.name
+
+class Redeemed(models.Model):
+    redeemed_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    gift = models.ForeignKey(Gifts, on_delete=models.CASCADE)
+    redeemed_on = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.redeemed_by)
