@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.conf.urls import include
 
 app_name = 'main'
 
@@ -21,5 +22,9 @@ urlpatterns = [
     path('gifts/', views.gifts, name='gifts'),
     path('redeem/<int:pk>', views.redeem, name='redeem'),
     path('redeemed_gifts/', views.redeemed_gifts, name='redeemed_gifts'),
+    path('user/api/', views.UserList.as_view()),
+    path('ngo/api', views.NGOList.as_view()),
+    path('donations/api/', views.DonationsList.as_view()),
+    path('requirements/api', views.RequirementsList.as_view()),
 ]
 

@@ -49,7 +49,6 @@ class Requirements(models.Model):
     reason = models.CharField(max_length=255,blank=False)
     required_by = models.DateTimeField(default=timezone.now)
     additional = models.CharField(max_length=255,blank=True)
-    is_satisfied = models.BooleanField(default=False)
 
     def __str__(self):
         return self.equipments

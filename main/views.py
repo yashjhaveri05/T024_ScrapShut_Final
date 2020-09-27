@@ -8,6 +8,37 @@ from django.contrib.auth.hashers import make_password
 from .forms import Requirementsform
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from main.serializers import UserSerializer,NGOSerializer,RequirementsSerializer,DonationsSerializer
+from rest_framework import mixins
+from rest_framework import generics
+
+class UserList(mixins.ListModelMixin,generics.GenericAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+class NGOList(mixins.ListModelMixin,generics.GenericAPIView):
+    queryset = NGO.objects.all()
+    serializer_class = NGOSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+class RequirementsList(mixins.ListModelMixin,generics.GenericAPIView):
+    queryset = Requirements.objects.all()
+    serializer_class = RequirementsSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+class DonationsList(mixins.ListModelMixin,generics.GenericAPIView):
+    queryset = Donations.objects.all()
+    serializer_class = DonationsSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
 
 def ngo(request):
     if request.method == 'GET':
