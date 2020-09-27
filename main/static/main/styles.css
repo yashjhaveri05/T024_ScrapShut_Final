@@ -1,0 +1,12 @@
+body {
+    text-align: center;
+    background-image: url("./background.jpg") !important;
+    /* background-repeat: no-repeat; */
+    background-color: lightseagreen !important;
+    background-position: center;
+    background-size: cover !important;
+  }
+  
+.bg-dark {
+    background-color: black !important;
+}

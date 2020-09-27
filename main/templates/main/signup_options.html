@@ -1,0 +1,34 @@
+{% extends "main/layout.html" %} {% block content %} <br /><br /><br />
+<div class="container col-md-4">
+  <div class="card text-center bg-dark text-light">
+    <div class="card-body">
+      <h6>Kindly Tell Us Which User Are You</h6>
+      <fieldset class="form-group">
+        <div class="form-check">
+          <label class="form-check-label">
+            <a href = "{% url 'main:donor_signup' %}">
+              <input
+                name="donator"
+                value="Donor"
+                class="btn btn-outline-primary"
+              />
+            </a><br><br>
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <a href = "{% url 'main:ngo_signup' %}">
+            <input
+              name="NGO"
+              value="NGO"
+              class="btn btn-outline-primary"
+            />
+          </a><br><br>
+          <a href="{% url 'main:login_view' %}"><input type="button" value="Back" class="btn btn-outline-primary"></a>
+          </label>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -5,9 +5,10 @@ from django.conf.urls import include
 app_name = 'main'
 
 urlpatterns = [
-    path('', views.ngo, name='ngo_signup'),
+    path('ngo_signup/', views.ngo, name='ngo_signup'),
+    path('signup_options/', views.router, name='signup_options'),
     path('donor_signup/', views.donor_signup, name='donor_signup'),
-    path('login/',views.login_view, name='login_view'),
+    path('',views.login_view, name='login_view'),
     path('logout/', views.logout, name='logout'),
     path('home/',views.home, name='home'),
     path('create/',views.create,name='create'),
@@ -25,6 +26,6 @@ urlpatterns = [
     path('user/api/', views.UserList.as_view()),
     path('ngo/api', views.NGOList.as_view()),
     path('donations/api/', views.DonationsList.as_view()),
-    path('requirements/api', views.RequirementsList.as_view()),
+    path('requirements/api', views.RequirementsList.as_view())
 ]
 

@@ -2,29 +2,29 @@
 {% block content %}
 <div class="event_details">
   <main class="mt-3 pt-4 main">
-    <div class="container dark-grey-text">
-      <div class="row wow fadeIn">
+    <div class="container">
+      <div class="card wow fadeIn bg-dark">
         {% for requirement in requirements %}
         <div class="col-md-12 mb-4 information">
-            <div class="p-4 content">
+            <div class="p-4 content text-white">
                 <div class="mt-0">
                     <h2 class="text-center"><u>{{ requirement.created_by }}</u></h2>
                 </div>
+                <br>
                 <div class="lead">
                     <h5 class="text-center">{{ requirement.created_by.website_link }}</h5>
                     <h5 class="text-center">{{ requirement.created_by.description }}</h5>
-                    <h5 class="text-center">{{ requirement.equipments }}</h5> 
-                    <h5 class="text-center">{{ requirement.quantity }}</h5>
+                    <hr>
+                    <h5 class="text-center">{{ requirement.equipments }} <span class="badge badge-primary">{{ requirement.quantity }}</span></h5> 
                     <h5>{{ requirement.description }}</h5>
                     <h5>{{ requirement.reason }}</h5> 
                     <h5>{{ requirement.required_by }}</h5>
                     <h5>{{ requirement.additional }}</h5>
-                    <hr>
                 </div>
             </div>
         </div>
         {% if user.is_authenticated %}
-        <div class="card p-4">
+        <div class="card m-4 p-4 bg-">
           <div class="card-body">
               <h5 class="card-title">{{ requirement.equipments }}</h5>
               <br />
@@ -47,11 +47,11 @@
                   <input type="hidden" name="pk" class="form-control" value="{{requirement.id}}">
                 </div>
                 <br />
-                <button type="submit">Donate</button>
+                <button type="submit" class="btn btn-outline-info">Donate</button>
               </form>
               <p>
                 If you donate an item, you get credits which can be redeemed at the
-                credits store on our site. Please refer to the requirements to credits page for more details.
+                credits store on our site. 
               </p>
             </div>
           </div>
