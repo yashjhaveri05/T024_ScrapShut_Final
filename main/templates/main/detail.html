@@ -16,10 +16,10 @@
                     <h5 class="text-center">{{ requirement.created_by.description }}</h5>
                     <hr>
                     <h5 class="text-center">{{ requirement.equipments }} <span class="badge badge-primary">{{ requirement.quantity }}</span></h5> 
-                    <h5>{{ requirement.description }}</h5>
-                    <h5>{{ requirement.reason }}</h5> 
-                    <h5>{{ requirement.required_by }}</h5>
-                    <h5>{{ requirement.additional }}</h5>
+                    <h5 class="text-center">{{ requirement.description }}</h5>
+                    <h5 class="text-center">{{ requirement.reason }}</h5> 
+                    <h5 class="text-center">{{ requirement.required_by }}</h5>
+                    <h5 class="text-center">{{ requirement.additional }}</h5>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                   <input type="hidden" name="pk" class="form-control" value="{{requirement.id}}">
                 </div>
                 <br />
-                <button type="submit" class="btn btn-outline-info">Donate</button>
+                <button type="submit" class="btn btn-info">Donate</button>
               </form>
               <p>
                 If you donate an item, you get credits which can be redeemed at the

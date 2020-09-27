@@ -2,7 +2,7 @@
 <div class="container text-light">
   <div class="card bg-dark">
     <div class="card-body">
-      <h5 class="card-title">Sign Up For Donors</h5>
+      <h5 class="card-title">Sign Up For NGO</h5>
       {% for each in messages %}
       <p>{{each}}</p>
       {% endfor %}
@@ -123,9 +123,9 @@
           />
         </div>
         <div class="form-group">
-          <input type="submit" value="Sign Up" class="btn btn-outline-success" />
+          <input type="submit" value="Sign Up" class="btn btn-success" />
         </div>
-        <a href="{% url 'main:signup_options' %}"><input type="button" value="Back" class="btn btn-outline-primary"></a>
+        <a href="{% url 'main:signup_options' %}"><input type="button" value="Back" class="btn btn-primary"></a>
       </form>
     </div>
   </div>

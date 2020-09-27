@@ -3,18 +3,17 @@
 <div class="home">
     <div class="container">
       {% if gifts %}
-      <h1 class="text-center mb-3">Redeem Your Credits Here</h1>
+      <h3 class="text-center mb-3 text-light">Redeem Your Credits Here</h3>
       <div class="row">
         {% for gift in gifts %}
             <div class="col-sm-4">
-                <div class="card mb-3" style="height: 300px; border-radius: 5px;">
-                    <div class="card-body text-center bg-dark text-light">
-                        <img src="{{ gift.image.url }}" >              
-                      <h4 class="text-center">{{ gift.name }}</h4>
+              <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{ gift.image.url }}" alt="Card image cap">
+                <div class="card-body bg-dark text-light">
+                  <h4 class="text-center">{{ gift.name }}</h4>
                       <h5 class="text-center">{{ gift.price }}</h5>
                       <h4 class="text-center">{{ gift.description }}</h4>  
-                      <a href="{% url 'main:redeem' gift.id %}" class="btn btn-info">Redeem</a>           
-                    </div>
+                      <a href="{% url 'main:redeem' gift.id %}" class="btn btn-info">Redeem</a>
                 </div>
             </div>            
         {% endfor %}

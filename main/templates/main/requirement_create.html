@@ -1,4 +1,8 @@
-{% extends "main/layout.html" %} {% block content %}
+{% extends "main/layout.html" %} {
+{% load crispy_forms_tags %}
+{% block content %}
+<br />
+<br />
 <div class="form">
   <div class="container text-light">
     <div class="card bg-dark">
@@ -7,7 +11,7 @@
           {% csrf_token %}
           <fieldset class="form-group">
             <legend class="border-bottom mb-4 pt-3">Add Requirement</legend>
-            {{ form.as_p }}
+            {{ form|crispy }}
           </fieldset>
           <div class="form-group">
             <button class="btn btn-outline-info" type="submit">Add</button>
@@ -17,4 +21,6 @@
     </div>
   </div>
 </div>
+<br />
+<br />
 {% endblock content %}

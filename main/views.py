@@ -42,9 +42,14 @@ class DonationsList(mixins.ListModelMixin,generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
+def about(request):
+    return render(request, 'main/about_us.html')
+
 #Ngo Signup
 def ngo(request):
-    if request.method == 'GET':
+    if request.user.is_authenticated:
+        return redirect('main:home')
+    elif request.method == 'GET':
         return render(request, 'main/ngo_signup.html')
 
     elif request.method == 'POST':
@@ -76,11 +81,13 @@ def ngo(request):
 
 #Donor Signup
 def donor_signup(request):
-    if request.method == 'GET':
+    if request.user.is_authenticated:
+        return redirect('main:home')
+    elif request.method == 'GET':
         return render(request, 'main/donor_signup.html')
 
     elif request.method == 'POST':
-        first_name = request.POST.get('username')
+        first_name = request.POST.get('firstname')
         last_name = request.POST.get('lastname')
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -104,7 +111,9 @@ def donor_signup(request):
 
 #login
 def login_view(request):
-    if request.method == 'GET':
+    if request.user.is_authenticated:
+        return redirect('main:home')
+    elif request.method == 'GET':
         return render(request, 'main/login_view.html')
     
     elif request.method == 'POST':
@@ -201,7 +210,7 @@ def donate(request):
         donation = Donations(donated_by=donated_by, equipment_donated=requirement, quantity_donated=quantity_donated)
         donation.save()
         messages.success(request, "Thankyou for donating!!")
-    return redirect("home")
+    return redirect("main:home")
 
 #donor checking his donations
 @login_required

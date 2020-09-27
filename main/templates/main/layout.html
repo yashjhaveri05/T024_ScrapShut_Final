@@ -21,7 +21,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/"><h3>Anonymous</h3></a>
+      <a class="navbar-brand" href="/"><h3>NGOWebsite</h3></a>
       <button
           class="navbar-toggler"
           type="button"
@@ -36,25 +36,28 @@
       <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
           </ul>
-          <ul class="navbar-nav ml-auto">
-                    <li><a href="{% url 'main:home' %}" class="mr-2 text-light">Home</a></li>
+          <ul class="navbar-nav ml-auto">                  
               {% if user.is_authenticated %}
                   {% if user.is_NGO %} 
-                      <li><a href="{% url 'main:donations_received' %}" class="mr-2 text-light">Donations</a></li>
-                      <li><a href="{% url 'main:create' %}" class="mr-2 text-light">Create</a></li>
-                      <li><a href="{% url 'main:ngo_req' %}" class="mr-2 text-light">MyRequirements</a></li>
+                      <li class="mt-2 mr-4"><a href="{% url 'main:donations_received' %}" class=" text-light"><h5>Donations</h5></a></li>
+                      <li class="mt-2 mr-4"><a href="{% url 'main:create' %}" class=" text-light"><h5>Create</h5></a></li>
+                      <li class="mt-2 mr-4"><a href="{% url 'main:ngo_req' %}" class=" text-light"><h5>MyRequirements</h5></a></li>
                   {% endif %}
-                    <li><a href="{% url 'main:donations_made' %}" class="mr-2 text-light">Donations Made</a></li>
-                    <li><a href="{% url 'main:gifts' %}" class="mr-2 text-light">Gifts</a></li>
-                    <li><a href="{% url 'main:redeemed_gifts' %}" class="mr-2 text-light">Redeemed</a></li>
-                    <li><a href="{% url 'main:logout' %}" class="mr-2 text-light">Logout</a></li>
+                    <li class="mt-2 mr-4"><a href="{% url 'main:home' %}" class=" text-light"><h5>Home</h5></a></li>
+                    <li class="mt-2 mr-4"><a href="{% url 'main:donations_made' %}" class=" text-light"><h5>Donations Made</h5></a></li>
+                    <li class="mt-2 mr-4"><a href="{% url 'main:gifts' %}" class=" text-light"><h5>Gifts</h5></a></li>
+                    <li class="mt-2 mr-4"><a href="{% url 'main:redeemed_gifts' %}" class=" text-light"><h5>Redeemed</h5></a></li>
+                    <li class="mt-2 mr-4"><a href="{% url 'main:logout' %}" class=" text-light"><h5>Logout</h5></a></li>
               {% else %}
-                    <li><a href="{% url 'main:login_view' %}" class="mr-2 text-light">Login</a></li>
-                    <li><a href="{% url 'main:signup_options' %}" class="mr-2 text-light">SignUp</a></li>
+                    <li class="mt-2 mr-4"><a href="{% url 'main:about_us' %}" class=" text-light"><h5>About</h5></a></li>  
+                    <li class="mt-2 mr-4"><a href="{% url 'main:login_view' %}" class=" text-light"><h5>Login</h5></a></li>
+                    <li class="mt-2 mr-4"><a href="{% url 'main:signup_options' %}" class=" text-light"><h5>SignUp</h5></a></li>
               {% endif %}
+                    <li><div id="google_translate_element" class="mr-2 ml-2"></div></li>
           </ul>
       </div>
   </nav>
+  <main>
     {% if messages %}
       {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">
@@ -64,8 +67,17 @@
     {% endif %}
     {% block content %}
     {% endblock %}
+    <br />
+    <br />
+  </main>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+      }
+      </script>
   </body>
 </html>

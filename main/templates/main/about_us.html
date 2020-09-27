@@ -1,0 +1,33 @@
+{% extends "main/layout.html" %} {% block content %}
+<div class="jumbotron rounded-0">
+  <h1 class="display-4 text-center">The NGO Website</h1>
+  <br />
+  <h2 class="lead">
+    <blockquote class="blockquote">
+      <p class="text-center">No one has ever become poor by giving.</p>
+      <footer class="blockquote-footer text-center">Anne Frank</footer>
+    </blockquote>
+  </h2>
+  <hr class="my-4" />
+  <h4 class="text-center">
+    The current pandemic has caused an acute shortage of medicines,
+    ventilators, beds and other medical equipment throughout the
+    nation. There are NGOs trying to procure these essentials for the poor
+    and middle class who do not have the means to purchase these
+    things.
+  </h4>
+  <h4 class="text-center">
+    We at NGOWebsite provide a platform where any NGO can signup and create the requirements for the equipments required to serve the poor.
+    Other users visiting the website can view these requirements and choose to donate to them that specific equipment!!For each donation accepted and successfully
+    made,the user gets credit points in his account with which he can redeem items from a list of products available on our site!!We try our best to authenticate
+    the NGO so that there is no fraud and only the NGo to which the person has donated has the sole discretion to validate the donations made by the user!!
+    Only upon validating,will the user be credited with the credit points!!
+  </h4>
+  <h4 class="text-center">
+    So why wait!!Jump in now and signup to create your free account be help the NGOs serve the people due the this pandemic!!
+  </h4>
+  <div class="text-center">
+    <a class="btn btn-primary btn-lg" href="{% url 'main:signup_options' %}" role="button">SignUp</a>
+  </div>
+</div>
+{% endblock content %}

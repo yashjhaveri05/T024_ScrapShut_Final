@@ -30,7 +30,7 @@
                         <td>{{ donation.donated_by.email }}</td>
                         <td>{{ donation.donated_by.mobile_number }}</td>
                         {% if donation.validated %}
-                        <td>Doanted On:{{ donation.donated_on }}</td>
+                        <td>Donated On:{{ donation.donated_on }}</td>
                         {% else %}
                         <td><a href="{% url 'main:validate' donation.id %}" class="btn btn-primary">Validate</a></td>
                         {% endif %}
@@ -41,6 +41,8 @@
             </div>            
         </div>
     </div>
+    {% else %}
+    <h3 class="text-center text-light">No Donations Received</h3>
     {% endif %}
 </div>
 {% endblock content %}
