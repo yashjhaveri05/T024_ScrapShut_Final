@@ -17,7 +17,7 @@ the quantity donated
 displayed
 
 Contributors:
-Nishant A. Kumar
-Rahul Raheja
-Shreyas Rami
+Nishant A. Kumar,
+Rahul Raheja,
+Shreyas Rami,
 Yash Jhaveri
