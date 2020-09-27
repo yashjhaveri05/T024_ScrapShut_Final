@@ -11,7 +11,9 @@ from django.utils import timezone
 from main.serializers import UserSerializer,NGOSerializer,RequirementsSerializer,DonationsSerializer
 from rest_framework import mixins
 from rest_framework import generics
+from .decorators import ngo_required,donor_required
 
+#Apis
 class UserList(mixins.ListModelMixin,generics.GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -40,6 +42,7 @@ class DonationsList(mixins.ListModelMixin,generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
+#Ngo Signup
 def ngo(request):
     if request.method == 'GET':
         return render(request, 'main/ngo_signup.html')
@@ -66,11 +69,12 @@ def ngo(request):
                                                 address=address,city=city,pincode=pincode,is_NGO=True)
                 additional = NGO.objects.create(user=user,organisation_name=organisation_name,registration_no=registration_no,
                                                 certificate=certificate,website_link=website_link)
-                return redirect('main:ngo_signup')
+                return redirect('main:login_view')
         else:
             messages.info(request, 'Passwords Do Not Match')
             return redirect('main:ngo_signup')
 
+#Donor Signup
 def donor_signup(request):
     if request.method == 'GET':
         return render(request, 'main/donor_signup.html')
@@ -93,12 +97,12 @@ def donor_signup(request):
             else:
                 user = User.objects.create(first_name=first_name,last_name=last_name,password=make_password(password), email=email, username=username, mobile_number=mobile_number,
                                                 address=address,city=city,pincode=pincode,is_Donor=True)
-                login(request, user)
-                return redirect('main:home')
+                return redirect('main:login_view')
         else:
             messages.info(request, 'Passwords Do Not Match')
             return redirect('main:donor_signup')
 
+#login
 def login_view(request):
     if request.method == 'GET':
         return render(request, 'main/login_view.html')
@@ -114,11 +118,15 @@ def login_view(request):
             messages.info(request, 'Invalid Credentials !')
             return redirect('main:login_view')
 
+#logout
+@login_required
 def logout(request):
     auth.logout(request)
-    return render(request,'main/home.html')
+    return redirect('main:login_view')
 
+#create requirements
 @login_required
+@ngo_required
 def create(request):
     if request.method == 'POST':
         form = Requirementsform(request.POST)
@@ -132,6 +140,9 @@ def create(request):
         form = Requirementsform()
         return render(request,'main/requirement_create.html',{'form':form})
 
+#view created requirements
+@login_required
+@ngo_required
 def ngo_req(request):
     requirements = Requirements.objects.filter(created_by=request.user)
     context = {
@@ -139,6 +150,9 @@ def ngo_req(request):
     }
     return render(request, 'main/display_requirements.html', context)
 
+#update requirements
+@login_required
+@ngo_required
 def update(request,requirement_id):
     instance = Requirements.objects.get(id=requirement_id)
     if request.method == 'POST':
@@ -152,10 +166,14 @@ def update(request,requirement_id):
         form = Requirementsform(instance=instance)
         return render(request,'main/update.html',{'form':form})
 
+#delete requirements
+@login_required
+@ngo_required
 def delete(request,requirement_id):
     Requirements.objects.filter(id=requirement_id).delete()
     return redirect('main:home')
 
+#view all requirements
 def home(request):
     requirements = Requirements.objects.all()
     context = {
@@ -163,6 +181,8 @@ def home(request):
     }
     return render(request, 'main/homepage.html', context)
 
+#requirement detail
+@login_required
 def requirements_detail(request,pk):
     requirements = Requirements.objects.filter(id=pk)
     context = {
@@ -170,6 +190,8 @@ def requirements_detail(request,pk):
     }
     return render(request, 'main/detail.html', context)
 
+#donate
+@login_required
 def donate(request):
     if request.method == "POST":
         donated_by = request.user
@@ -181,6 +203,8 @@ def donate(request):
         messages.success(request, "Thankyou for donating!!")
     return redirect("home")
 
+#donor checking his donations
+@login_required
 def donations_made(request):
     donations = Donations.objects.filter(donated_by=request.user)
     context = {
@@ -188,6 +212,9 @@ def donations_made(request):
     }
     return render(request, 'main/donations_made.html', context)
 
+#ngo checking all donations made wrt to their ngo
+@login_required
+@ngo_required
 def donations_received(request):
     donations = Donations.objects.filter(equipment_donated__created_by=request.user)
     context = {
@@ -195,6 +222,8 @@ def donations_received(request):
     }
     return render(request, 'main/donations_received.html', context)
 
+#if deal done,validate
+@login_required
 def validate(request,pk):
     donations = Donations.objects.filter(id=pk)
     donor = donations[0]
@@ -208,6 +237,8 @@ def validate(request,pk):
     users.update(credit=credit)
     return redirect('main:home')
 
+#gifts redeem
+@login_required
 def gifts(request):
     gifts = Gifts.objects.all()
     context = {
@@ -215,6 +246,8 @@ def gifts(request):
     }
     return render(request, 'main/gifts.html', context)
 
+#redeem the gifts
+@login_required
 def redeem(request,pk):
     gifts = Gifts.objects.filter(id=pk)
     for gift in gifts:
@@ -232,6 +265,8 @@ def redeem(request,pk):
     users.update(credit=credit)
     return redirect("main:home")
 
+#view redeemed
+@login_required
 def redeemed_gifts(request):
     redeemed_gifts = Redeemed.objects.filter(redeemed_by=request.user)
     context = {
@@ -239,5 +274,6 @@ def redeemed_gifts(request):
     }
     return render(request, 'main/redeemed_gifts.html', context)
 
+#signup segregation
 def router(request):
     return render(request, 'main/signup_options.html')
